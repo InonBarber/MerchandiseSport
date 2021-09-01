@@ -36,10 +36,7 @@ namespace MerchandiseSport.Models
 
         public UserType type { get; set; } = UserType.Nothing;
 
-        internal object First()
-        {
-            throw new NotImplementedException();
-        }
+        
 
     }
 }

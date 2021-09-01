@@ -7,9 +7,9 @@ namespace MerchandiseSport.Models
 {
     public class League
     {
-        public int IdOfLeague  { get; set; }
-        public string NameOfTheLeague { get; set; }
-        public int NumberOfClubs { get; set; }
+        public int Id  { get; set; }
+        public string Name { get; set; }
+        public int Number { get; set; }
         public String LeagueIcon { get; set; }
     }
 }

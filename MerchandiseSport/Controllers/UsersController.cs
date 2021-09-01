@@ -90,11 +90,11 @@ namespace MerchandiseSport.Controllers
                 var q = from u in _context.Users
                         where u.UserName == users.UserName && u.Password == users.Password
                         select u;
-                //_context.User.FirstOrDefault(u => u.UserName == users.UserName && u.Password == users.Password);
+                
 
                 if (q.Count() > 0)
                 {
-                    // HttpContext.Session.SetString("username", q.First().UserName);
+                    
 
                     Signin(q.First());
 

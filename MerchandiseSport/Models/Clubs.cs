@@ -7,9 +7,10 @@ namespace MerchandiseSport.Models
 {
     public class Clubs
     {
-        public int IdOfClub { get; set; }
-        public string NameOfClub { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
         public String GroupIcon { get; set; }
         
     }
 }
+   

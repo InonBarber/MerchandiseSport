@@ -15,5 +15,9 @@ namespace MerchandiseSport.Data
         }
 
         public DbSet<MerchandiseSport.Models.Users> Users { get; set; }
+
+        public DbSet<MerchandiseSport.Models.Product> Product { get; set; }
+
+        
     }
 }
