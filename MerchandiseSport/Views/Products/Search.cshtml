@@ -1,0 +1,46 @@
+﻿@model IEnumerable<MerchandiseSport.Models.Product>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h4>Products search result</h4>
+
+
+
+<div class="container">
+    <div class="row" id="tab">
+
+        @foreach (var product in Model) //the main loop for put more items
+        {
+
+
+            {
+<div class="col-sm-3">
+    <div class="card" style="width: 18rem;">
+        <img src="@product.ProductImage" class="card-img-top" alt="no">
+        <div class="card-body">
+            <h5 class="card-title"> @product.Title</h5>
+            @*<p class="card-text">Console: @game.Console.Name</p>*@
+            <p class="card-text"> Price:  @product.Price₪</p>
+            <a asp-action="Details" asp-route-id="@product.SerialNumber" class="btn btn-primary">Go to product page</a>
+            @if (Context.User.IsInRole("Admin"))
+            {
+                <div>
+                    <a asp-action="Edit" asp-route-id="@product.SerialNumber">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@product.SerialNumber">Delete</a>
+                </div>}
+
+        </div>
+    </div>
+
+
+</div>}
+            }
+
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/Search.js" asp-append-version="true"></script>
+
+}

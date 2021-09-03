@@ -66,7 +66,7 @@ namespace MerchandiseSport
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Users}/{action=Register}/{id?}");
+                    pattern: "{controller=Products}/{action=Create}/{id?}");
             });
         }
     }

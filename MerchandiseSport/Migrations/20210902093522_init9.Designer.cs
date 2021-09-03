@@ -4,14 +4,16 @@ using MerchandiseSport.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MerchandiseSport.Migrations
 {
     [DbContext(typeof(MerchandiseSportContext))]
-    partial class MerchandiseSportContextModelSnapshot : ModelSnapshot
+    [Migration("20210902093522_init9")]
+    partial class init9
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
