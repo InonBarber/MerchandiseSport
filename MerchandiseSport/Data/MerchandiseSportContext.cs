@@ -18,6 +18,8 @@ namespace MerchandiseSport.Data
 
         public DbSet<MerchandiseSport.Models.Product> Product { get; set; }
 
+        public DbSet<MerchandiseSport.Models.Category> Category { get; set; }
+
         
     }
 }

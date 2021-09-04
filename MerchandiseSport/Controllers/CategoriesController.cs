@@ -10,28 +10,22 @@ using MerchandiseSport.Models;
 
 namespace MerchandiseSport.Controllers
 {
-    public class ProductsController : Controller
+    public class CategoriesController : Controller
     {
         private readonly MerchandiseSportContext _context;
 
-        public ProductsController(MerchandiseSportContext context)
+        public CategoriesController(MerchandiseSportContext context)
         {
             _context = context;
         }
 
-        // GET: Products
+        // GET: Categories
         public async Task<IActionResult> Index()
         {
-            var merchandiseSportContext = _context.Product.Include(p => p.Category);
-            return View(await merchandiseSportContext.ToListAsync());
-        }
-        public async Task<IActionResult> Search(string query)
-        {
-            var merchandiseSportContext = _context.Product.Include(p => p.Category).Where(pr=>pr.Title.Contains(query)|| (query == null));
-            return View("Index", await merchandiseSportContext.ToListAsync());
+            return View(await _context.Category.ToListAsync());
         }
 
-        // GET: Products/Details/5
+        // GET: Categories/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -39,42 +33,39 @@ namespace MerchandiseSport.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Product
-                .Include(p => p.Category)
-                .FirstOrDefaultAsync(m => m.SerialNumber == id);
-            if (product == null)
+            var category = await _context.Category
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (category == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View(category);
         }
 
-        // GET: Products/Create
+        // GET: Categories/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Id");
             return View();
         }
 
-        // POST: Products/Create
+        // POST: Categories/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SerialNumber,Title,CreationDate,Size,Price,ProductImage,CategoryId")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,Name")] Category category)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(product);
+                _context.Add(category);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Id", product.CategoryId);
-            return View(product);
+            return View(category);
         }
 
-        // GET: Products/Edit/5
+        // GET: Categories/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -82,23 +73,22 @@ namespace MerchandiseSport.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Product.FindAsync(id);
-            if (product == null)
+            var category = await _context.Category.FindAsync(id);
+            if (category == null)
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Id", product.CategoryId);
-            return View(product);
+            return View(category);
         }
 
-        // POST: Products/Edit/5
+        // POST: Categories/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SerialNumber,Title,CreationDate,Size,Price,ProductImage,CategoryId")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Category category)
         {
-            if (id != product.SerialNumber)
+            if (id != category.Id)
             {
                 return NotFound();
             }
@@ -107,12 +97,12 @@ namespace MerchandiseSport.Controllers
             {
                 try
                 {
-                    _context.Update(product);
+                    _context.Update(category);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductExists(product.SerialNumber))
+                    if (!CategoryExists(category.Id))
                     {
                         return NotFound();
                     }
@@ -123,11 +113,10 @@ namespace MerchandiseSport.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Id", product.CategoryId);
-            return View(product);
+            return View(category);
         }
 
-        // GET: Products/Delete/5
+        // GET: Categories/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -135,31 +124,30 @@ namespace MerchandiseSport.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Product
-                .Include(p => p.Category)
-                .FirstOrDefaultAsync(m => m.SerialNumber == id);
-            if (product == null)
+            var category = await _context.Category
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (category == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View(category);
         }
 
-        // POST: Products/Delete/5
+        // POST: Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var product = await _context.Product.FindAsync(id);
-            _context.Product.Remove(product);
+            var category = await _context.Category.FindAsync(id);
+            _context.Category.Remove(category);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProductExists(int id)
+        private bool CategoryExists(int id)
         {
-            return _context.Product.Any(e => e.SerialNumber == id);
+            return _context.Category.Any(e => e.Id == id);
         }
     }
 }
